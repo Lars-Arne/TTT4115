@@ -3,6 +3,49 @@ RESULTATER FRA SIMULERING/TESTING
 
 \section{Problem 2a}
 
+	\begin{equation}
+		H=\frac{1}{2}log(2\pi e^1\frac{\sigma ^2 _U}{\Delta ^2})
+	\end{equation}
+	\begin{equation}
+		\Delta ^2=\frac{2\pi e^1\sigma ^2 _U}{2^{2H}}
+	\end{equation}
+	
+	\begin{table}
+		\centering
+		\begin{tabular}{| l | c |} \hline
+			H & $\Delta^2$ \\ \hline
+			0.75 & 6.04 \\ \hline
+			2 & 1.067 \\ \hline
+			5 & 0.017 \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\begin{equation}
+		\sqrt{\lambda}=\frac{\int\limits_{-\infty}^{\infty}\sqrt{S_x(f)S_Q(f)}df}{P+\sigma^2_Q}
+	\end{equation}
+	\begin{equation}
+		\sigma^2_Q=\frac{\Delta^2}{12}
+	\end{equation}
+	
+	\begin{equation}
+		S_Q(f)=\sigma^2_Q
+	\end{equation}
+	
+
+	\begin{equation}
+		\sqrt{\lambda}=\frac{\int\limits_{-\frac{1}{2}}^{\frac{1}{2}}\sqrt{\frac{0.19\sigma^2_Q}{1.81-1.8cos(2\pi f)}}df}{1+\sigma^2_Q}
+	\end{equation}
+	
+	\begin{equation}
+		|H(f)|^2=\sqrt{\frac{\lambda S_x(f)}{S_Q(f)}}-\lambda
+	\end{equation}
+	
+	\begin{equation}
+		|G(f)|^2=\sqrt{\frac{S_N(f)}{\lambda S_x(f)}}-\frac{S_N(f)}{S_x(f)}
+	\end{equation}
+	
+	
+
 \section{Problem 2b}
 
 \section{Problem 2c}
