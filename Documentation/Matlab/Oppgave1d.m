@@ -1,8 +1,8 @@
 clear all
 
-n=100;
+n=10000;
 rho=0.9;
-tau=[-50:50];
+tau=[   -50:50];
 
 
 x=Oppgave1c(n,rho);

@@ -1,12 +1,10 @@
 \chapter{Problem 2}
-RESULTATER FRA SIMULERING/TESTING
-
+To shorten the length of this report, the code for problem 2 have been put together instead of having seperate code for a, b and c. All plots made in normalized frequency have been from $0$ to $\frac{1}{2}$ since they are real functions. Since the functions are real, the frequency plot is even, and easier to interpret this way.
+                          
 \section{Problem 2a}
-	To shorten the length of this report, the code for problem 2 have been put together instead of having seperate code for a, b and c. All plots made in normalized frequency have been from $0-\frac{1}{2}$ since they are real functions. Since the functions are real, the frequency plot is even, and easier to interpret this way.
 	
-	%\lstinputlisting{Matlab/Oppgave2.m}
 	
-	The following equation for bitrate was given in the exercise 
+	Equation~\ref{eq:eq_bit_rate} for bitrate was given in the exercise 
 	\begin{equation}
 		H=\frac{1}{2}log(2\pi e^1\frac{\sigma ^2 _U}{\Delta ^2})
 		\label{eq:eq_bit_rate}
@@ -16,61 +14,91 @@ RESULTATER FRA SIMULERING/TESTING
 	
 	\begin{equation}
 		\Delta ^2=\frac{2\pi e^1\sigma ^2 _U}{2^{2H}}
+		\label{eq:step_size}
 	\end{equation}
 	
-	Equation~\ref{eq:eq_lagrange_mult} is given in the compendium and is used in the process of calculating the optimal filters.
+	Equation~\ref{eq:eq_lagrange_mult} is equation (3.15) from the compendium and is used in the process of calculating the optimal filters.
 	
 	\begin{equation}
 		\sqrt{\lambda}=\frac{\int\limits_{-\infty}^{\infty}\sqrt{S_x(f)S_Q(f)}df}{P+\sigma^2_Q}
 		\label{eq:eq_lagrange_mult}
 	\end{equation}
 	
-	For the calculation of the lagrange multiplier, the following equation is given in the exercise:
+	For the calculation of the lagrange multiplier, equation~\ref{eq:step_from_noise} is given in the exercise:
 	
-	\begin{equation*}
+	\begin{equation}
 		\sigma^2_Q=\frac{\Delta^2}{12}
-	\end{equation*}
+		\label{eq:step_from_noise}
+	\end{equation}
 	
 	The noise is constant over the frequency-band, thus applying
 	
 	\begin{equation*}
-		S_Q(f)=\sigma^2_Q
+		S_N(f)=\sigma^2_Q
 	\end{equation*}
 	
-	All inserted in the following equation~\ref{eq:eq_lagrange_mult} that was given in the compendium:
+	All inserted in equation~\ref{eq:eq_lagrange_mult} gives equation~\ref{eq:lagrange_full}.
 
 	\begin{equation}
 		\sqrt{\lambda}=\frac{\int\limits_{-\frac{1}{2}}^{\frac{1}{2}}\sqrt{\frac{0.19\sigma^2_Q}{1.81-1.8cos(2\pi f)}}df}{1+\sigma^2_Q}
+		\label{eq:lagrange_full}
 	\end{equation}
-	The integral in the equation has to be solved numerically using matlab. The calculated functions and values are used in the following formulas to calculate the optimal transmitter/receiver filters.
+	
+	The integral in equation~\ref{eq:lagrange_full} had to be solved numerically using matlab. The calculated functions and values are used in equation~\ref{eq:optimal_receiver} and ~\ref{eq:optimal_transmitter} to calculate the optimal transmitter/receiver filters.
 	
 	\begin{equation}
-		|H(f)|^2=\sqrt{\frac{\lambda S_x(f)}{S_Q(f)}}-\lambda
+		|H(f)|^2=\sqrt{\frac{\lambda S_x(f)}{S_N(f)}}-\lambda
+		\label{eq:optimal_receiver}
 	\end{equation}
 	
 	\begin{equation}
 		|G(f)|^2=\sqrt{\frac{S_N(f)}{\lambda S_x(f)}}-\frac{S_N(f)}{S_x(f)}
+		\label{eq:optimal_transmitter}
 	\end{equation}
 	
-	\lstinputlisting{Matlab/Oppgave2a.m}
+	The resulting frequency responses for the filters are shown in figure~\ref{fig:freq_opt_G} and \ref{fig:freq_opt_H}.
 	
 	\begin{figure}[H]
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave2a_freq_G}
+	  \label{fig:freq_opt_G}
 	\end{figure}
 	
 	\begin{figure}[H]
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave2a_freq_H}
+	  \label{fig:freq_opt_H}
 	\end{figure}
+	
+	To calculate the power spectral densities of the output noise and signal component, they where first calculated seperatly by using equation~\ref{eq:noise_out_spec} and ~\ref{eq:sig_out_spec}. The results are shown in figure~\ref{fig:sig_noise_freq_out}
+	
+	\begin{equation}
+		N(f)=\sigma _Q^2|H(f)|^2
+		\label{eq:noise_out_spec}
+	\end{equation}
+	
+	\begin{equation}
+		Y(f)=S_x(f)|G(f)|^2|H(f)|^2
+		\label{eq:sig_out_spec}
+	\end{equation}
+	
 	
 	\begin{figure}[H]
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave2a_sig_noise_freq_out}
+	  \label{fig:sig_noise_freq_out}
 	\end{figure}
 	
-	The SNR for the different values were:
-	\begin{table}
+	To calculate the SNR, spectras shown in  figure~\ref{fig:sig_noise_freq_out} si used as shown in equation~\ref{eq:SNR}
+	
+	\begin{equation}
+		SNR=10log\left(\frac{\int\limits_{-\frac{1}{2}}^{\frac{1}{2}}Y(f)df}{\int\limits_{-\frac{1}{2}}^{\frac{1}{2}}N(f)df}\right)
+		\label{eq:SNR}
+	\end{equation}
+	
+	The SNR for the different values of bitrates is shown in table~\ref{tab:SNR_results}
+	
+	\begin{table}[H]
 		\centering
 		\begin{tabular}{l l}
 			H & SNR[dB] \\
@@ -78,35 +106,81 @@ RESULTATER FRA SIMULERING/TESTING
 			2 & 14.99 \\
 			5 & 32.60 \\
 		\end{tabular}
+		\label{tab:SNR_results}
+		\caption{Shows SNR values for different bitrates.}
 	\end{table}
 
 \section{Problem 2b}
-
-	\lstinputlisting{Matlab/Oppgave2b.m}
+	The function FrSamp() that was given in the exercise was used to make an inverse fft of the receive and transmit filters. The inverse fft of a frequency respones will be the same as the impulse response to the given function. Higher resolution of the inverse fft will increase the resolution of the impulse response. The impulse response of the receive and transmit filters are shown in figure~\ref{fig:impulse_G_diskrete} and ~\ref{fig:impulse_H_diskrete}.
 	
 	\begin{figure}[H]
 	  \centering
-	  \includegraphics[width=0.75\textwidth]{img/Oppgave2b_freq_G}
+	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_impulse_G_diskrete_t}
+	  \label{fig:impulse_G_diskrete}
 	\end{figure}
 	
 	\begin{figure}[H]
 	  \centering
-	  \includegraphics[width=0.75\textwidth]{img/Oppgave2b_freq_H}
+	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_impulse_H_diskrete_t}
+	  \label{fig:impulse_H_diskrete}
+	\end{figure}
+	
+	To be able to compare the calculated and the exact filters, an fft is done on the impulse responses shown in figure~\ref{fig:impulse_G_diskrete} and ~\ref{fig:impulse_H_diskrete}. The comparison of exact and calculated filters are shown in figure
+	
+	\begin{figure}[H]
+	  \centering
+	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_freq_G}
+	  \label{fig:freq_comp_G}
 	\end{figure}
 	
 	\begin{figure}[H]
 	  \centering
-	  \includegraphics[width=0.75\textwidth]{img/Oppgave2b_impulse_G_diskrete_t}
+	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_freq_H}
+	  \label{fig:freq_comp_H}
 	\end{figure}
+	
+	To show how the signal is modulated through the system, equation 3.19 from the compendium is used. The equation is shown in equation~\ref{eq:total_sig_mod} and the result is plotted in figure~\ref{fig:signal_mod_xy}.
+	
+	\begin{equation}
+		|H(f)G(f)|=1-\sqrt{\lambda \frac{S_N(f)}{S_x(f)}}
+		\label{eq:total_sig_mod}
+	\end{equation}
 	
 	\begin{figure}[H]
 	  \centering
-	  \includegraphics[width=0.75\textwidth]{img/Oppgave2b_impulse_H_diskrete_t}
-	\end{figure}
-	
-	\begin{figure}[H]
-	  \centering
-	  \includegraphics[width=0.75\textwidth]{img/Oppgave2b_signal_mod_x_y}
+	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_signal_mod_x_y}
+	  \label{fig:signal_mod_xy}
 	\end{figure}
 
 \section{Problem 2c}
+	
+	To measure the bitrate, we had to decide step size from equation~\ref{eq:step_from_noise} and use this to decide decision limits and representation levels. Then the output signal from G(f) where sorted in the different representation levels and shown in figure~\ref{fig:Quant_output}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/Oppgave2c_Quant_output}
+		\label{fig:Quant_output}
+	\end{figure}
+	The upper and lower quantization limits were decided from figure~\ref{fig:Quant_output} so that we did not trunkate any levels. 
+	
+	The definition for bitrate is given in the exercise and is shown in equation~\ref{eq:bitrate_def} where $P_i$ is the probability of getting a given value. The results from calculation is given in table~\ref{tab:result_SNR_H}.
+	
+	\begin{equation}
+		H=-\sum\limits_{i=1}^{I}P_ilog_2(P_i)
+		\label{eq:bitrate_def}            
+	\end{equation}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{l l l l}
+			H & SNR calculated[dB] & SNR simulated[dB] & H simulated\\
+			0.75 & 9.45 & 7.49 & 0.97 \\
+			2 & 14.99 & 14.78 & 2.06\\
+			5 & 32.60 & 29.69 & 4.99\\
+		\end{tabular}
+		\label{tab:result_SNR_H}
+	\end{table}
+	
+	As seen in table~\ref{tab:result_SNR_H}, the simulated bitrate deviates from the given one for low bitrates. This result complies with the exercise text where it is stated that the equation~\ref{eq:eq_bit_rate} is for high-rate systems. 
+	
+	We noted that the SNR would improve if length of filters are increased.
