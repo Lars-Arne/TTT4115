@@ -3,7 +3,7 @@
 	
 	From the z-transform of the described filter in Problem 1 we get:
 	\begin{equation}
-		X(z)=\rho X(z)z^{-1}+\sqrt{1-\rho ^2}*E(z) 
+		X(z)=\rho X(z)z^{-1}+\sqrt{1-\rho ^2}E(z) 
 		\label{eq:eq_impulse_response}
 	\end{equation}
 	If we sort equation~\ref{eq:eq_impulse_response} in regard of $\frac{X(z)}{E(z)}$ we get:
@@ -12,7 +12,7 @@
 		\label{eq:eq_freq_resp_x}
 	\end{equation*}
 	
-	Make the z-transform back to the diskrete plane
+	Make the z-transform back to the discrete plane
 	
 	\begin{equation*}
 		t(n)=\sqrt{1-\rho ^2}\rho ^nu(n)
@@ -58,7 +58,7 @@
 		\label{eq:autocorrelation}
 	\end{equation}
 	
-	After shorting equation~\ref{eq:autocorrelation} we get equation~\ref{eq:autocorrelation_complete} that is shown in figure~\ref{fig:autocorrelation}.
+	After shorting equation~\ref{eq:autocorrelation} and using the absolute value to represent the negative values of $\tau$ we get equation~\ref{eq:autocorrelation_complete} that is shown in figure~\ref{fig:autocorrelation}.
 	
 	\begin{equation}
 		R_x(\tau)=\rho^{|\tau |}
@@ -66,44 +66,46 @@
 	\end{equation}
 
 	
-	\begin{figure}[H]
+	\begin{figure}
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave1a}
 	  \label{fig:autocorrelation}
+	  \caption{Autocorrelation of signal x}
 	\end{figure}
 	
   
   
   \section{Problem 1b}
 	The power spectral density may be given by equation~\ref{eq:spectral_density} where T(f) is the AR filter process:
-	\begin{equation}[H]
+	\begin{equation}
 		Sx(f)=|T(f)|^2=T(f)T^*(f)
 		\label{eq:spectral_density}
 	\end{equation}
 	
 	Insert the expression from equation~\ref{eq:eq_freq_resp_x} and calculate:
 	
-	\begin{equation*}[H]
+	\begin{equation*}
 		T(f)=T(z)|_{z=e^{j2\pi f}}=\frac{\sqrt{1-\rho ^2}}{1-\rho e^{-j2\pi f}}
 	\end{equation*}
 	
 	Expanding the denominator and cleaning up.
 	
-	\begin{equation*}[H]
+	\begin{equation*}
 		Sx(f)=\frac{\sqrt{1-\rho ^2}^2}{(1-\rho e^{-j2\pi f})(1-\rho e^{j2\pi f})}=\frac{1-\rho ^2}{1-\rho e^{j2\pi f}-\rho e^{-j2\pi f}+\rho ^2}
 	\end{equation*}
 	
 	Using eulers formula for cosine function to reduce to equation~\ref{eq:eq_Spectral_Density_X} and plot the result in figure~\ref{fig:power_spectral_density_x}.
 	
-	\begin{equation}[H]
+	\begin{equation}
 		Sx(f)=\frac{1-\rho ^2}{1+\rho ^2-2\rho cos(2\pi f)}
 		\label{eq:eq_Spectral_Density_X}
 	\end{equation}
 	
-	\begin{figure}[H]
+	\begin{figure}
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave1b}
 	  \label{fig:power_spectral_density_x}
+	  \caption{Power spectral density of x}
 	\end{figure}
   
   \section{Problem 1c}
@@ -116,6 +118,7 @@
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave1d}
 	  \label{fig:oppave1d}
+	  \caption{Shows the simulated and calculated autocorrelation of the signal,x}
 	\end{figure}
 	
 	As seen in figure~\ref{fig:oppave1d}, the simulated and calculated autocorrelations are similar. Some variation may be seen between each run of the script. 
@@ -125,6 +128,7 @@
 	\begin{figure}[h]
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave1e}
+	  \caption{Shows the simulated and calculated power spectral density of the signal, x}
 	\end{figure}
 	
 	When calculating the fft of the output, we had to use a limited amount of samples to achieve normal results. This was to limit the amount of noise in the plot.

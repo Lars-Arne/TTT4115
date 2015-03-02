@@ -1,5 +1,5 @@
 \chapter{Problem 2}
-To shorten the length of this report, the code for problem 2 have been put together instead of having seperate code for a, b and c. All plots made in normalized frequency have been from $0$ to $\frac{1}{2}$ since they are real functions. Since the functions are real, the frequency plot is even, and easier to interpret this way.
+To shorten the length of this report, the code for problem 2 have been put together instead of having seperate code for a, b and c which may be found in \ref{app:2}. All plots made in normalized frequency have been from $0$ to $\frac{1}{2}$ since they are real functions. Since the functions are real, the frequency plot is even, and easier to interpret this way.
                           
 \section{Problem 2a}
 	
@@ -62,12 +62,14 @@ To shorten the length of this report, the code for problem 2 have been put toget
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave2a_freq_G}
 	  \label{fig:freq_opt_G}
+	  \caption{Frequency response of transmit filter}
 	\end{figure}
 	
 	\begin{figure}[H]
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave2a_freq_H}
 	  \label{fig:freq_opt_H}
+	  \caption{Frequency response of receiver filter}
 	\end{figure}
 	
 	To calculate the power spectral densities of the output noise and signal component, they where first calculated seperatly by using equation~\ref{eq:noise_out_spec} and ~\ref{eq:sig_out_spec}. The results are shown in figure~\ref{fig:sig_noise_freq_out}
@@ -87,6 +89,7 @@ To shorten the length of this report, the code for problem 2 have been put toget
 	  \centering
 	  \includegraphics[width=0.75\textwidth]{img/Oppgave2a_sig_noise_freq_out}
 	  \label{fig:sig_noise_freq_out}
+	  \caption{Output signal and noise power spectrum}
 	\end{figure}
 	
 	To calculate the SNR, spectras shown in  figure~\ref{fig:sig_noise_freq_out} si used as shown in equation~\ref{eq:SNR}
@@ -96,15 +99,15 @@ To shorten the length of this report, the code for problem 2 have been put toget
 		\label{eq:SNR}
 	\end{equation}
 	
-	The SNR for the different values of bitrates is shown in table~\ref{tab:SNR_results}
+	The estimated values for the different bitrates is shown in table~\ref{tab:SNR_results}
 	
 	\begin{table}[H]
 		\centering
-		\begin{tabular}{l l}
-			H & SNR[dB] \\
-			0.75 & 9.45 \\
-			2 & 14.99 \\
-			5 & 32.60 \\
+		\begin{tabular}{l l l l}
+			H[bits/sample] & noise power($\sigma^2_Q$) & Lagrange ($\lambda$) & SNR[dB] \\
+			0.75 & 0.532 & 0.0892 & 9.45 \\
+			2 & 0.0890 & 0.03 & 14.99 \\
+			5 & 0.0014 & 0.00055 & 32.60 \\
 		\end{tabular}
 		\label{tab:SNR_results}
 		\caption{Shows SNR values for different bitrates.}
@@ -113,70 +116,76 @@ To shorten the length of this report, the code for problem 2 have been put toget
 \section{Problem 2b}
 	The function FrSamp() that was given in the exercise was used to make an inverse fft of the receive and transmit filters. The inverse fft of a frequency respones will be the same as the impulse response to the given function. Higher resolution of the inverse fft will increase the resolution of the impulse response. The impulse response of the receive and transmit filters are shown in figure~\ref{fig:impulse_G_diskrete} and ~\ref{fig:impulse_H_diskrete}.
 	
-	\begin{figure}[H]
+	\begin{figure}[h]
 	  \centering
 	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_impulse_G_diskrete_t}
 	  \label{fig:impulse_G_diskrete}
+	  \caption{Impulse response of transmit filter}
 	\end{figure}
 	
-	\begin{figure}[H]
+	\begin{figure}[h]
 	  \centering
 	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_impulse_H_diskrete_t}
 	  \label{fig:impulse_H_diskrete}
+	  \caption{Impulse response of receiver filter}
 	\end{figure}
 	
-	To be able to compare the calculated and the exact filters, an fft is done on the impulse responses shown in figure~\ref{fig:impulse_G_diskrete} and ~\ref{fig:impulse_H_diskrete}. The comparison of exact and calculated filters are shown in figure
+	To be able to compare the calculated and the exact filters, an fft is done on the impulse responses shown in figure~\ref{fig:impulse_G_diskrete} and ~\ref{fig:impulse_H_diskrete}. The comparison of exact and calculated filters are shown in figure~\ref{fig:freq_comp_G} and figure~\ref{fig:freq_comp_H}.
 	
-	\begin{figure}[H]
+	\begin{figure}[h]
 	  \centering
 	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_freq_G}
+	  \caption{Comparison of calculated and exact transmit filters}
 	  \label{fig:freq_comp_G}
 	\end{figure}
 	
-	\begin{figure}[H]
+	\begin{figure}[h]
 	  \centering
 	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_freq_H}
+	  \caption{Comparison of calculated and exact receive filters}
 	  \label{fig:freq_comp_H}
 	\end{figure}
 	
-	To show how the signal is modulated through the system, equation 3.19 from the compendium is used. The equation is shown in equation~\ref{eq:total_sig_mod} and the result is plotted in figure~\ref{fig:signal_mod_xy}.
+	To show how the signal is modified through the system, equation 3.19 from the compendium is used. The equation is shown in equation~\ref{eq:total_sig_mod} and the result is plotted in figure~\ref{fig:signal_mod_xy}.
 	
 	\begin{equation}
 		|H(f)G(f)|=1-\sqrt{\lambda \frac{S_N(f)}{S_x(f)}}
 		\label{eq:total_sig_mod}
 	\end{equation}
 	
-	\begin{figure}[H]
+	\begin{figure}[h]
 	  \centering
 	  \includegraphics[width=0.9\textwidth]{img/Oppgave2b_signal_mod_x_y}
 	  \label{fig:signal_mod_xy}
+	  \caption{Signal modification through the system}
 	\end{figure}
 
 \section{Problem 2c}
 	
-	To measure the bitrate, we had to decide step size from equation~\ref{eq:step_from_noise} and use this to decide decision limits and representation levels. Then the output signal from G(f) where sorted in the different representation levels and shown in figure~\ref{fig:Quant_output}.
+	To measure the bitrate, we had to decide step size from equation~\ref{eq:step_from_noise} and use this to decide decision limits and representation levels. Then the output signal from G(f) where quantized using the quantiz() function from communication systems toolbox and shown in figure~\ref{fig:Quant_output}.
 	
-	\begin{figure}[H]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.9\textwidth]{img/Oppgave2c_Quant_output}
 		\label{fig:Quant_output}
+		\caption{Quantized output from transmit filters with 0.75, 2 and 5 bits/sample}
 	\end{figure}
-	The upper and lower quantization limits were decided from figure~\ref{fig:Quant_output} so that we did not trunkate any levels. 
+	The upper and lower quantization limits were decided from figure~\ref{fig:Quant_output} so that we did not truncate any levels. 
 	
-	The definition for bitrate is given in the exercise and is shown in equation~\ref{eq:bitrate_def} where $P_i$ is the probability of getting a given value. The results from calculation is given in table~\ref{tab:result_SNR_H}.
+	The definition for bitrate is given in the exercise and is shown in equation~\ref{eq:bitrate_def} where $P_i$ is the probability of being inside interval i. The results from calculation is given in table~\ref{tab:result_SNR_H}.
 	
 	\begin{equation}
 		H=-\sum\limits_{i=1}^{I}P_ilog_2(P_i)
 		\label{eq:bitrate_def}            
 	\end{equation}
 	
-	\begin{table}[H]
+	\begin{table}[h]
 		\centering
-		\begin{tabular}{l l l l}
-			H & SNR calculated[dB] & SNR simulated[dB] & H simulated\\
-			0.75 & 9.45 & 7.49 & 0.97 \\
-			2 & 14.99 & 14.78 & 2.06\\
-			5 & 32.60 & 29.69 & 4.99\\
+		\begin{tabular}{l l l l l}
+			H[bit/symbol] & SNR theoretical[dB] & SNR simulated[dB] & Step size($\Delta$) & H simulated[bit/symbol]\\
+			0.75 & 9.45 & 7.49 & 2.4573 & 0.97 \\
+			2 & 14.99 & 14.78 & 1.0332 & 2.06\\
+			5 & 32.60 & 29.69 & 0.1291 & 4.99\\
 		\end{tabular}
 		\label{tab:result_SNR_H}
 	\end{table}
